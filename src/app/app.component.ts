@@ -1,27 +1,23 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h2>Users List</h2>
+    <ul>
+      <li *ngFor="let user of users">{{ user.name }} ({{ user.email }})</li>
+    </ul>
+  `
 })
-export class AppComponent {
-  loginForm: FormGroup;
+export class AppComponent implements OnInit {
+  users: any[] = [];
 
-  constructor(private fb: FormBuilder) {
-    // Define form with validation rules
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
     });
-  }
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form Data:', this.loginForm.value);
-    } else {
-      console.log('Form is invalid!');
-      this.loginForm.markAllAsTouched(); // show all errors
-    }
   }
 }

@@ -1,11 +1,5 @@
-How it Works
+What is HttpClientModule?
 
-ngModel → binds input field with Angular
+It’s a built-in Angular module that lets your app make HTTP requests (GET, POST, PUT, DELETE, etc.) to a server.
 
-name="..." → required so Angular tracks each input
-
-#userForm="ngForm" → creates a reference to the whole form
-
-userForm.value → gives all input values as an object
-
-userForm.invalid → Angular automatically validates required fields
+It provides the HttpClient service, which is easier and more powerful than the old Http service.
