@@ -1,21 +1,24 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { EmployeeComponent } from './employee/employee.component';
-import { FormsModule } from '@angular/forms';
-
+import { AuthInterceptor } from './auth.interceptor';
 @NgModule({
+ 
   declarations: [
     AppComponent,
-    EmployeeComponent,
   ],
   imports: [
     BrowserModule, 
-    HttpClientModule ,
-    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true, // allows multiple interceptors
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
