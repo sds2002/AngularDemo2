@@ -1,16 +1,28 @@
-<h1>Angular Routing with Resolver Demo</h1>
+<h2>User Registration</h2>
 
-<!-- Navigation Bar -->
-<nav>
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-    Home
-  </a>
-  <a routerLink="/user/1" routerLinkActive="active">User 1</a>
-  <a routerLink="/user/2" routerLinkActive="active">User 2</a>
-  <a routerLink="/user/3" routerLinkActive="active">User 3</a>
-</nav>
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+  
+  <!-- Name field -->
+  <label>Name:</label>
+  <input type="text" name="name" ngModel required />
+  <br><br>
 
-<hr />
+  <!-- Email field -->
+  <label>Email:</label>
+  <input type="email" name="email" ngModel required />
+  <br><br>
 
-<!-- Routed views appear here -->
-<router-outlet></router-outlet>
+  <!-- Gender field -->
+  <label>Gender:</label>
+  <select name="gender" ngModel required>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  <br><br>
+
+  <button type="submit" [disabled]="userForm.invalid">Register</button>
+</form>
+
+<hr>
+<h3>Form Value (Live Preview)</h3>
+<pre>{{ userForm.value | json }}</pre>

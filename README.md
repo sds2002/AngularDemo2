@@ -1,11 +1,11 @@
-Explanation
+How it Works
 
-Routing: Maps URL paths to Angular components.
+ngModel → binds input field with Angular
 
-Guard (canActivate): Runs before navigating to a route.
+name="..." → required so Angular tracks each input
 
-If guard returns true → access allowed.
+#userForm="ngForm" → creates a reference to the whole form
 
-If guard returns false → navigation blocked (we redirected to home).
+userForm.value → gives all input values as an object
 
-In real apps, you’d replace isLoggedIn with a real AuthService check (JWT token, session, etc.).
+userForm.invalid → Angular automatically validates required fields
