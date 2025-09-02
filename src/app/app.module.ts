@@ -1,17 +1,22 @@
+// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // Needed for ngModel
+
 import { AppComponent } from './app.component';
-import { DataService } from './data.service';
-import { ErrorInterceptor } from './error.interceptor';
+import { TodoListComponent } from './todo-list.component';
+import { TodoService } from './todo.service';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
-  providers: [
-    DataService,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  declarations: [
+    AppComponent,
+    TodoListComponent // Declare the component
   ],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule // For two-way binding [(ngModel)]
+  ],
+  providers: [TodoService], // Inject service (optional if providedIn: 'root')
+  bootstrap: [AppComponent] // Root component
 })
-export class AppModule {}
+export class AppModule { }
