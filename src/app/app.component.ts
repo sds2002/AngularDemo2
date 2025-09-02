@@ -1,20 +1,27 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
-  user = {
-    name: '',
-    email: '',
-    password: ''
-  };
+  loginForm: FormGroup;
 
-  onSubmit(form: any) {
-    if (form.valid) {
-      console.log('Form Submitted:', this.user);
-      alert('Registration Successful!');
+  constructor(private fb: FormBuilder) {
+    // Define form with validation rules
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log('Form Data:', this.loginForm.value);
+    } else {
+      console.log('Form is invalid!');
+      this.loginForm.markAllAsTouched(); // show all errors
     }
   }
 }
