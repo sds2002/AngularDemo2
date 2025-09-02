@@ -3,23 +3,45 @@ import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <h1>Angular Interceptor Example</h1>
-    <button (click)="loadData()">Load Data</button>
-    <pre>{{ data | json }}</pre>
-  `
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  data: any;
+  posts: any[] = [];
+  errorMessage: string = '';
 
   constructor(private dataService: DataService) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    // Normal GET all posts
+    this.loadPosts();
 
-  loadData() {
-    this.dataService.getData().subscribe({
-      next: (res) => (this.data = res),
-      error: (err) => console.error('Error from component:', err)
+    // Test GET single post (404)
+    this.dataService.getPost(9999).subscribe({
+      next: (data) => console.log(data),
+      error: (err) => this.errorMessage = err.message
+    });
+  }
+
+  loadPosts() {
+    this.dataService.getPosts().subscribe({
+      next: (data) => {
+        this.posts = data;
+      },
+      error: (err) => {
+        this.errorMessage = err.message;
+      }
+    });
+  }
+
+  addPost() {
+    const newPost = { title: 'New Post', body: 'Content here', userId: 1 };
+    this.dataService.createPost(newPost).subscribe({
+      next: (data) => {
+        this.posts.unshift(data);
+      },
+      error: (err) => {
+        this.errorMessage = err.message;
+      }
     });
   }
 }
