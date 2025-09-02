@@ -1,22 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ChildComponent } from './child/child.component';
-import { ParentComponent } from './parent/parent.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+// Define routes
+const routes: Routes = [
+  { path: '', component: HomeComponent }, // default route
+  { path: 'about', component: AboutComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChildComponent,
-    ParentComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    RouterModule.forRoot(routes) // Import routing module with routes
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
