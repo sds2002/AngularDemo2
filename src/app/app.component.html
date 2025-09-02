@@ -1,16 +1,16 @@
 <nav>
-    <a routerLink="/">Home</a> | 
-    <a routerLink="/about">About</a> | 
-    <a routerLink="/dashboard">Dashboard</a>
-  </nav>
-  
-  <hr>
-  
-  <!-- Login/Logout buttons -->
-  <div>
-    <button *ngIf="!authService.isAuthenticated()" (click)="login()">Login</button>
-    <button *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</button>
-  </div>
-  
-  <router-outlet></router-outlet>
-  
+  <a routerLink="/">Home</a> | 
+  <a routerLink="/about">About</a> | 
+  <a routerLink="/dashboard">Dashboard</a> | 
+  <a routerLink="/admin/home">Admin Home</a> | 
+  <a routerLink="/admin/settings">Admin Settings</a>
+</nav>
+
+<hr>
+
+<div>
+  <button *ngIf="!authService.isAuthenticated()" (click)="login()">Login</button>
+  <button *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</button>
+</div>
+
+<router-outlet></router-outlet>

@@ -8,8 +8,13 @@ import { AuthGuard } from './auth.guard';  // we’ll create this soon
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }, // protected
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
