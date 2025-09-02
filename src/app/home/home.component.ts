@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  template: `<h2>Welcome to the Home Page</h2>`
+  templateUrl: './home.component.html'
 })
-export class HomeComponent { }
+export class HomeComponent {
+  users = [
+    { id: 1, name: 'Deepa' },
+    { id: 2, name: 'Raj' },
+    { id: 3, name: 'Asha' }
+  ];
+}
