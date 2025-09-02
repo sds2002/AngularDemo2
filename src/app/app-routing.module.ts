@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthGuard } from './auth.guard';  // we’ll create this soon
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '', component: UserListComponent },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-  }
+    path: 'user/:id',
+    component: UserDetailComponent,
+    resolve: { user: UserResolver }
+  },
+  // Redirect unknown routes to Home
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 
