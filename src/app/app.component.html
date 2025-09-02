@@ -5,5 +5,12 @@
   </nav>
   
   <hr>
+  
+  <!-- Login/Logout buttons -->
+  <div>
+    <button *ngIf="!authService.isAuthenticated()" (click)="login()">Login</button>
+    <button *ngIf="authService.isAuthenticated()" (click)="logout()">Logout</button>
+  </div>
+  
   <router-outlet></router-outlet>
   
