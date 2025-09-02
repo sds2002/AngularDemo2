@@ -1,26 +1,65 @@
 <div class="container">
-    <h2>Login Form (Reactive)</h2>
+    <h2>User Registration</h2>
   
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- Username -->
-      <label>Username</label>
-      <input type="text" formControlName="username" />
-      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" style="color:red">
-        Username is required (min 3 characters).
+    <!-- ngForm directive tracks form state -->
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      
+      <!-- NAME -->
+      <div>
+        <label>Name:</label>
+        <input type="text" 
+               name="name" 
+               [(ngModel)]="user.name" 
+               required 
+               minlength="3" 
+               #name="ngModel">
+        
+        <!-- Validation messages -->
+        <div *ngIf="name.invalid && name.touched" style="color:red">
+          <small *ngIf="name.errors?.['required']">Name is required.</small>
+          <small *ngIf="name.errors?.['minlength']">Min 3 characters required.</small>
+        </div>
+      </div>
+      
+      <!-- EMAIL -->
+      <div>
+        <label>Email:</label>
+        <input type="email" 
+               name="email" 
+               [(ngModel)]="user.email" 
+               required 
+               email 
+               #email="ngModel">
+        
+        <div *ngIf="email.invalid && email.touched" style="color:red">
+          <small *ngIf="email.errors?.['required']">Email is required.</small>
+          <small *ngIf="email.errors?.['email']">Invalid email format.</small>
+        </div>
+      </div>
+      
+      <!-- PASSWORD -->
+      <div>
+        <label>Password:</label>
+        <input type="password" 
+               name="password" 
+               [(ngModel)]="user.password" 
+               required 
+               minlength="6" 
+               #password="ngModel">
+        
+        <div *ngIf="password.invalid && password.touched" style="color:red">
+          <small *ngIf="password.errors?.['required']">Password is required.</small>
+          <small *ngIf="password.errors?.['minlength']">Min 6 characters required.</small>
+        </div>
       </div>
   
-      <!-- Password -->
-      <label>Password</label>
-      <input type="password" formControlName="password" />
-      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" style="color:red">
-        Password is required (min 6 characters).
-      </div>
-  
-      <!-- Submit -->
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <!-- Submit button disabled until form is valid -->
+      <button type="submit" [disabled]="userForm.invalid">Register</button>
     </form>
   
-    <p>Form Value: {{ loginForm.value | json }}</p>
-    <p>Form Status: {{ loginForm.status }}</p>
+    <hr />
+  
+    <!-- Debugging form values -->
+    <pre>{{ userForm.value | json }}</pre>
   </div>
   
