@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ViewchildComponent } from './viewchild/viewchild.component';
+import { ChildComponent } from './child/child.component';
+import { ParentComponent } from './parent/parent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewchildComponent
+    ChildComponent,
+    ParentComponent
   ],
   imports: [
     BrowserModule,
