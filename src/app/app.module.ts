@@ -1,22 +1,22 @@
-// app.module.ts
+// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Needed for ngModel
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { TodoListComponent } from './todo-list.component';
-import { TodoService } from './todo.service';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TodoListComponent // Declare the component
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule // For two-way binding [(ngModel)]
+    HttpClientModule // Required for HttpClient
   ],
-  providers: [TodoService], // Inject service (optional if providedIn: 'root')
-  bootstrap: [AppComponent] // Root component
+  providers: [
+    DataService // Our custom service
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,72 +1,31 @@
-1. What is “state” in this app?
+1. What are Observables in Angular?
 
-Think of state as the single source of truth for your todos.
+In Angular, Observables come from RxJS (Reactive Extensions for JavaScript). They are used to handle asynchronous operations, like:
 
-Initially: your todo list is empty ([]).
+HTTP requests (HttpClient)
 
-Whenever you add, toggle, or delete a todo, you update this state.
+User input events
 
-All components that care about todos react automatically to the changes.
+Timers or intervals
 
-2. The BehaviorSubject
+WebSocket messages
 
-In todo.service.ts:
+Think of an Observable as a stream of data over time, which you can subscribe to and react whenever a new value comes in.
 
-private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-todos$: Observable<Todo[]> = this.todosSubject.asObservable();
+Key concepts
 
+Observable – the source of data (like a stream).
 
-BehaviorSubject → like a box that holds your state and notifies anyone who’s watching when it changes.
+Observer – defines how to react to data (next, error, complete).
 
-todos$ → is the Observable we give to components. Components subscribe to it, so they see changes automatically.
+Subscription – connects the observer to the observable.
 
-Analogy: Imagine a whiteboard in a room:
+Operators – functions that let you transform or filter the data stream (like map, filter, tap).
 
-BehaviorSubject → the whiteboard itself (holds the latest info).
+2. Why use Observables?
 
-Observable → the people in the room watching the whiteboard.
+They are lazy: code doesn’t run until you subscribe.
 
-next() → writing something new on the whiteboard.
+They handle multiple values over time, unlike Promises which resolve once.
 
-3. Updating State
-
-When you add a todo:
-
-addTodo(title: string) {
-  const newTodo: Todo = { id: Date.now(), title, completed: false };
-  this.todosSubject.next([...this.todos, newTodo]);
-}
-
-
-this.todos → gets the current list of todos.
-
-next([...this.todos, newTodo]) → creates a new list including the new todo and pushes it to everyone watching (todos$).
-
-This is reactive programming: changes in state automatically flow to the UI.
-
-4. The Component
-
-In todo-list.component.ts:
-
-todos$: Observable<Todo[]>; // Observable from service
-this.todos$ = this.todoService.todos$;
-
-
-The component doesn’t hold its own todo list. It just listens to todos$.
-
-Whenever the service updates the list, the component updates automatically.
-
-In template:
-
-<li *ngFor="let todo of todos$ | async">
-
-
-| async → subscribes to the Observable and updates the list in real time.
-
-5. Why This is Powerful
-
-Single source of truth → all components see the same state.
-
-Reactive updates → no need to manually refresh or pass data around.
-
-Scalable → for bigger apps, you can organize multiple state slices using this pattern.
+They integrate well with Angular’s reactive forms and HttpClient.
