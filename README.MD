@@ -1,31 +1,25 @@
-1. What are Observables in Angular?
+1. What is a Subject in Angular?
 
-In Angular, Observables come from RxJS (Reactive Extensions for JavaScript). They are used to handle asynchronous operations, like:
+In Angular (and RxJS in general), a Subject is a special type of Observable that allows multicasting.
 
-HTTP requests (HttpClient)
+Key points:
 
-User input events
+A Subject is both an Observable and an Observer:
 
-Timers or intervals
+You can subscribe to it (like an Observable).
 
-WebSocket messages
+You can emit values into it (like an Observer).
 
-Think of an Observable as a stream of data over time, which you can subscribe to and react whenever a new value comes in.
+All subscribers get the same value emitted by the Subject.
 
-Key concepts
+Useful for sharing data between components/services.
 
-Observable – the source of data (like a stream).
+Types of Subjects
 
-Observer – defines how to react to data (next, error, complete).
+Subject – Normal behavior, subscribers only get future values.
 
-Subscription – connects the observer to the observable.
+BehaviorSubject – Stores the last emitted value, new subscribers get that immediately.
 
-Operators – functions that let you transform or filter the data stream (like map, filter, tap).
+ReplaySubject – Stores a buffer of previous values, new subscribers get all previous.
 
-2. Why use Observables?
-
-They are lazy: code doesn’t run until you subscribe.
-
-They handle multiple values over time, unlike Promises which resolve once.
-
-They integrate well with Angular’s reactive forms and HttpClient.
+AsyncSubject – Emits only the last value when complete.

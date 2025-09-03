@@ -1,22 +1,20 @@
-// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { DataService } from './data.service';
+import { IncrementComponent } from './increment/increment.component';
+import { DisplayComponent } from './display/display.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IncrementComponent,
+    DisplayComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule // Required for HttpClient
+    BrowserModule
   ],
-  providers: [
-    DataService // Our custom service
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
